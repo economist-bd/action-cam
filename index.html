@@ -4,272 +4,347 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Shop – Action Camera Store</title>
-    <style>
-        /* বেসিক রিসেট এবং ফন্ট */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'SolaimanLipi', Arial, sans-serif; /* বাংলা ফন্ট */
-        }
+   <style>
+    /* --- ফন্ট এবং বেসিক সেটআপ --- */
+    @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;600;700&display=swap');
 
-        body {
-            background-color: #f0f2f5;
-            color: #333;
-            line-height: 1.6;
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Hind Siliguri', 'SolaimanLipi', Arial, sans-serif;
+        scroll-behavior: smooth;
+    }
 
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
+    body {
+        /* জীবন্ত ব্যাকগ্রাউন্ড (Animated Gradient) */
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        color: #333;
+        line-height: 1.6;
+        min-height: 100vh;
+    }
 
-        /* কন্টেইনার */
-        .container {
-            max-width: 600px; /* মোবাইল-ফার্স্ট লুক, আসল সাইটের মতো */
-            margin: 0 auto;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            overflow-x: hidden;
-        }
+    @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
 
-        /* হেডার */
-        header {
-            background-color: #fff;
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        header h1 { font-size: 1.5rem; color: #2c3e50; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    ul { list-style: none; }
 
-        /* হিরো সেকশন */
-        .hero {
-            text-align: center;
-            padding: 20px;
-            background: #fff;
-        }
-        .hero img {
-            width: 100%;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-        .price-tag {
-            font-size: 1.2rem;
-            margin: 10px 0;
-        }
-        .old-price {
-            text-decoration: line-through;
-            color: #888;
-            margin-right: 10px;
-        }
-        .new-price {
-            color: #e74c3c;
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
+    /* --- মেইন কন্টেইনার (Glassmorphism Look) --- */
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        /* কাঁচের মতো ইফেক্ট */
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        overflow: hidden;
+    }
 
-        /* অর্ডার বাটন স্টাইল */
-        .btn-order {
-            display: inline-block;
-            background-color: #e74c3c; /* লালচে বাটন */
-            color: white;
-            padding: 12px 30px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            border-radius: 50px;
-            animation: pulse 2s infinite;
-            margin: 10px 0;
-            cursor: pointer;
-            border: none;
-            width: 90%;
-            text-align: center;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
-        }
+    /* --- হেডার --- */
+    header {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 15px;
+        text-align: center;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        backdrop-filter: blur(5px);
+    }
+    header h1 { 
+        font-size: 1.6rem; 
+        color: #2c3e50; 
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
 
-        /* গ্যারান্টি বক্স */
-        .guarantee-box {
-            background-color: #ffeaa7;
-            padding: 15px;
-            text-align: center;
-            margin: 20px;
-            border: 2px dashed #fdcb6e;
-            border-radius: 8px;
-            font-weight: bold;
-        }
+    /* --- হিরো সেকশন (আকর্ষণীয়) --- */
+    .hero {
+        text-align: center;
+        padding: 50px 20px;
+        background: radial-gradient(circle at center, #fff 0%, #f3f4f6 100%);
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero h2 {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+        background: -webkit-linear-gradient(#e74c3c, #c0392b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800;
+    }
 
-        /* সাধারণ সেকশন স্টাইল */
-        .section-title {
-            text-align: center;
-            margin: 30px 0 20px;
-            font-size: 1.5rem;
-            color: #2c3e50;
-            border-bottom: 2px solid #e74c3c;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-        .content-section {
-            padding: 0 20px;
-            margin-bottom: 30px;
-        }
-        
-        /* গ্যালারি */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            padding: 0 10px;
-        }
-        .gallery img {
-            width: 100%;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
+    .hero-img-container {
+        margin: 30px 0;
+        position: relative;
+    }
+    
+    .hero img {
+        width: 85%;
+        max-width: 380px;
+        border-radius: 20px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        transform: perspective(1000px) rotateX(5deg);
+        transition: transform 0.5s ease;
+    }
+    
+    /* ছবিতে মাউস নিলে সোজা হবে */
+    .hero-img-container:hover img {
+        transform: perspective(1000px) rotateX(0deg) scale(1.05);
+    }
 
-        /* ভিডিও প্লেসহোল্ডার */
-        .video-placeholder {
-            width: 100%;
-            height: 250px;
-            background-color: #000;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
+    /* দামের ডিজাইন */
+    .price-tag {
+        font-size: 1.4rem;
+        margin: 20px 0;
+        background: #fff;
+        display: inline-block;
+        padding: 10px 25px;
+        border-radius: 50px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .old-price {
+        text-decoration: line-through;
+        color: #95a5a6;
+        margin-right: 15px;
+        font-size: 1.1rem;
+    }
+    .new-price {
+        color: #e74c3c;
+        font-weight: 900;
+        font-size: 1.8rem;
+    }
 
-        /* ফিচার লিস্ট */
-        .feature-list li {
-            background: #fff;
-            border-bottom: 1px solid #eee;
-            padding: 10px;
-            display: flex;
-            align-items: flex-start;
-        }
-        .feature-list li::before {
-            content: '✅';
-            margin-right: 10px;
-        }
-        .feature-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .feature-card {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid #eee;
-        }
-        .feature-card h4 { color: #e74c3c; margin-bottom: 5px; }
+    /* --- অর্ডার বাটন (Shine Effect সহ) --- */
+    .btn-order {
+        position: relative;
+        display: block;
+        background: linear-gradient(45deg, #ff416c, #ff4b2b);
+        color: white;
+        padding: 18px 30px;
+        font-size: 1.4rem;
+        font-weight: bold;
+        border-radius: 50px;
+        box-shadow: 0 10px 25px rgba(255, 75, 43, 0.5);
+        margin: 25px auto;
+        cursor: pointer;
+        border: none;
+        width: 90%;
+        text-align: center;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
 
-        /* রিভিউ/টেস্টিমোনিয়াল */
-        .review-card {
-            background: #fff;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
-        }
-        .user-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .user-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-right: 15px;
-        }
-        .stars { color: #f1c40f; }
+    /* বাটনের উপর আলোর ঝলকানি (Shine Animation) */
+    .btn-order::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        transition: 0.5s;
+    }
+    .btn-order:hover::before { left: 100%; }
+    .btn-order:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(255, 75, 43, 0.7); }
+    .btn-order:active { transform: scale(0.95); }
 
-        /* অর্ডার ফর্ম */
-        .order-form-container {
-            background-color: #fff;
-            padding: 20px;
-            border-top: 5px solid #e74c3c;
-            margin-top: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-        .shipping-options label {
-            display: block;
-            margin-bottom: 5px;
-            cursor: pointer;
-            background: #f8f9fa;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-        .order-summary {
-            background: #f1f2f6;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
-        }
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 5px;
-        }
-        .total-row {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: #e74c3c;
-            border-bottom: none;
-        }
+    /* গ্যারান্টি বক্স */
+    .guarantee-box {
+        background: #fffbe6;
+        padding: 15px;
+        margin: 20px;
+        border-radius: 12px;
+        border: 2px dashed #ffe58f;
+        font-weight: 600;
+        color: #d48806;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
 
-        /* ফুটার এবং ফ্লোটিং বাটন */
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #2c3e50;
-            color: #fff;
-            margin-top: 20px;
-        }
-        .floating-wa {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #25D366;
-            color: white;
-            padding: 15px;
-            border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            font-size: 24px;
-            z-index: 1001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-        }
-    </style>
+    /* --- সেকশন স্টাইল (স্ক্রল এনিমেশনের জন্য রেডি) --- */
+    .section-title {
+        text-align: center;
+        margin: 50px 0 30px;
+        font-size: 1.8rem;
+        color: #34495e;
+        position: relative;
+        z-index: 1;
+    }
+    .section-title span {
+        background: #fff;
+        padding: 0 15px;
+        position: relative;
+        z-index: 2;
+    }
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: linear-gradient(to right, transparent, #e74c3c, transparent);
+        z-index: 0;
+    }
+
+    .content-section { padding: 0 20px; margin-bottom: 40px; }
+
+    /* --- ফিচার গ্রিড এবং কার্ড --- */
+    .feature-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    .feature-card {
+        background: #fff;
+        padding: 25px 15px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* বাউন্সি এফেক্ট */
+        border: 1px solid #f0f0f0;
+    }
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(231, 76, 60, 0.2);
+        border-color: #e74c3c;
+    }
+    .feature-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+
+    /* --- ভিডিও প্লেয়ার --- */
+    .video-placeholder {
+        width: 100%;
+        height: 240px;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('mm.jpg'); 
+        background-size: cover;
+        background-position: center;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        position: relative;
+        overflow: hidden;
+    }
+    .video-play-btn {
+        width: 70px;
+        height: 70px;
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(5px);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 2rem;
+        border: 2px solid #fff;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+    .video-play-btn:hover {
+        background: #e74c3c;
+        border-color: #e74c3c;
+        transform: scale(1.1);
+    }
+
+    /* --- রিভিউ কার্ডস --- */
+    .review-card {
+        background: #fff;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        border-left: 5px solid #e74c3c;
+    }
+
+    /* --- অর্ডার ফর্ম (Clean & Modern) --- */
+    .order-form-container {
+        background: #fff;
+        padding: 30px 25px;
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -10px 30px rgba(0,0,0,0.05);
+        margin-top: 40px;
+    }
+    .form-group input, .form-group textarea {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #f1f2f6;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: 0.3s;
+        background: #f9f9f9;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+        border-color: #e74c3c;
+        background: #fff;
+        box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.1);
+        outline: none;
+    }
+
+    .order-summary {
+        background: #fff5f5;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #ffcccc;
+        margin: 25px 0;
+    }
+
+    /* --- ফ্লোটিং বাটন --- */
+    .floating-wa {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #25D366;
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4);
+        z-index: 2000;
+        animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+        40% {transform: translateY(-10px);}
+        60% {transform: translateY(-5px);}
+    }
+
+    /* --- Scroll Reveal Class (JavaScript দিয়ে কাজ করবে) --- */
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
 </head>
 <body>
 
@@ -280,9 +355,9 @@
 
     <div class="hero">
         <h2>🎥 4K Action Camera</h2>
-        <div class="price-tag">
-            <span class="old-price">৳3800</span>
-            <span class="new-price">এখন মাত্র ৳2500</span>
+        <div class="price-tag reveal">
+            <span class="old-price reveal">৳3800</span>
+            <span class="new-price reveal">এখন মাত্র ৳2500</span>
         </div>
         <img src="https://placehold.co/600x400/2c3e50/white?text=Action+Camera+Hero+Image" alt="Action Camera">
         <a href="#order" class="btn-order">🛒 অর্ডার করুন</a>
@@ -293,7 +368,7 @@
     </div>
 
     <div style="text-align: center;">
-        <h3 class="section-title">প্রোডাক্ট এর কিছু ছবি</h3>
+        <h3 class="section-title reveal">প্রোডাক্ট এর কিছু ছবি</h3>
     </div>
     <div class="gallery">
         <img src="https://placehold.co/300x300/e67e22/white?text=Front+View" alt="Camera 1">
@@ -302,9 +377,9 @@
         <img src="https://placehold.co/300x300/2ecc71/white?text=Accessories" alt="Camera 4">
     </div>
 
-    <div class="content-section" style="margin-top: 30px;">
-        <h3 class="section-title" style="display:block; text-align:center;">বিস্তারিত ভিডিও</h3>
-        <div class="video-placeholder">
+    <div class="content-section reveal" style="margin-top: 30px;">
+        <h3 class="section-title reveal" style="display:block; text-align:center;">বিস্তারিত ভিডিও</h3>
+        <div class="video-placeholder reveal">
             ▶️ Demo Video Review (YouTube Embed)
         </div>
         <div style="text-align: center;">
@@ -312,9 +387,9 @@
         </div>
     </div>
 
-    <div class="content-section">
-        <h3 class="section-title" style="display:block; text-align:center;">কেন এই ক্যামেরা কিনবেন?</h3>
-        <ul class="feature-list">
+    <div class="content-section reveal">
+        <h3 class="section-title reveal" style="display:block; text-align:center;">কেন এই ক্যামেরা কিনবেন?</h3>
+        <ul class="feature-list reveal">
             <li><strong>বাজেট ফ্রেন্ডলি:</strong> মাত্র ২৫০০ টাকায় এমন মানের ক্যামেরা আর কোথাও পাবেন না।</li>
             <li><strong>4K / 30fps:</strong> ইউটিউব, ফেসবুক বা টিকটকের জন্য একদম পারফেক্ট।</li>
             <li><strong>পোর্টেবল:</strong> সহজে ব্যাগে রাখা যায়, ভ্রমণে বহন করা ঝামেলাহীন।</li>
@@ -323,22 +398,22 @@
         <img src="https://placehold.co/550x300/e74c3c/white?text=Feature+Highlight" style="width:100%; border-radius:8px; margin-top:10px;">
     </div>
 
-    <div class="content-section">
-        <h3 class="section-title" style="display:block; text-align:center;">কি কি সুবিধা পাচ্ছেন!</h3>
+    <div class="content-section reveal">
+        <h3 class="section-title reveal" style="display:block; text-align:center;">কি কি সুবিধা পাচ্ছেন!</h3>
         <div class="feature-grid">
-            <div class="feature-card">
+            <div class="feature-card reveal">
                 <h4>📸 4K Quality</h4>
                 <p>ক্রিস্টাল ক্লিয়ার ছবি</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card reveal">
                 <h4>🔋 ব্যাটারি</h4>
                 <p>১ ঘন্টা ব্যাকআপ</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card reveal">
                 <h4>🎥 ভিডিও</h4>
                 <p>প্রফেশনাল রেকর্ড</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card reveal">
                 <h4>💧 ওয়াটারপ্রুফ</h4>
                 <p>পানির নিচে নিরাপদ</p>
             </div>
@@ -351,7 +426,7 @@
     <div class="content-section">
         <h3 class="section-title" style="display:block; text-align:center;">কাস্টমারদের মতামত!</h3>
         
-        <div class="review-card">
+        <div class="review-card reveal">
             <div class="user-info">
                 <img src="https://placehold.co/50x50/333/fff?text=R" class="user-img" alt="User">
                 <div>
@@ -362,7 +437,7 @@
             <p>আমি ভ্রমণের প্রতিটি মুহূর্ত ধরে রাখতে চাই। এই ক্যামেরাটা হালকা এবং ওয়াটারপ্রুফ। সত্যিই অসাধারণ!</p>
         </div>
 
-        <div class="review-card">
+        <div class="review-card reveal">
             <div class="user-info">
                 <img src="https://placehold.co/50x50/333/fff?text=A" class="user-img" alt="User">
                 <div>
@@ -374,24 +449,24 @@
         </div>
     </div>
 
-    <div id="order" class="order-form-container">
+    <div id="order" class="order-form-container reveal">
         <h3>আপনার তথ্য দিন এবং অর্ডার কনফার্ম করুন</h3>
         <br>
         <form onsubmit="alert('ধন্যবাদ! এটি একটি ডেমো অর্ডার।'); return false;">
-            <div class="form-group">
+            <div class="form-group reveal">
                 <label>আপনার নাম *</label>
                 <input type="text" placeholder="নাম লিখুন" required>
             </div>
-            <div class="form-group">
+            <div class="form-group reveal">
                 <label>আপনার ঠিকানা *</label>
                 <input type="text" placeholder="পূর্ণ ঠিকানা লিখুন" required>
             </div>
-            <div class="form-group">
+            <div class="form-group reveal">
                 <label>মোবাইল নম্বর *</label>
                 <input type="tel" placeholder="মোবাইল নম্বর লিখুন" required>
             </div>
 
-            <div class="form-group shipping-options">
+            <div class="form-group shipping-options reveal">
                 <label style="font-weight: bold; margin-bottom: 10px; display:block;">শিপিং এরিয়া সিলেক্ট করুন:</label>
                 <label>
                     <input type="radio" name="shipping" value="100" checked onchange="updateTotal()"> ঢাকার ভিতরে (১০০৳)
@@ -401,7 +476,7 @@
                 </label>
             </div>
 
-            <div class="order-summary">
+            <div class="order-summary reveal">
                 <h4>অর্ডার সামারি</h4>
                 <div class="summary-row">
                     <span>4K Action Camera x 1</span>
@@ -458,6 +533,28 @@
         document.getElementById('shipping-cost').innerText = shippingCost + '৳';
         document.getElementById('total-price').innerText = total + '৳';
     }
+</script>
+
+    <script>
+    // স্ক্রল এনিমেশন লজিক
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementVisible = 100; // কতটুকু স্ক্রল করলে দেখা যাবে
+
+            if (elementTop < windowHeight - elementVisible) {
+                reveals[i].classList.add("active");
+            } else {
+                reveals[i].classList.remove("active");
+            }
+        }
+    }
+    window.addEventListener("scroll", reveal);
+    
+    // পেজ লোড হওয়ার সাথে সাথেই একবার চেক করবে
+    reveal();
 </script>
 
 </body>
