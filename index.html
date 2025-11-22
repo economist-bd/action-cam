@@ -7,7 +7,70 @@
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <style>
+   <style>
+        /* বেসিক রিসেট */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', Arial, sans-serif; }
+        body {
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* --- লাল বৃত্ত এবং এনিমেশনের CSS --- */
+
+        /* মূল টেক্সটের স্টাইল */
+        .offer-headline {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        /* "Camera" শব্দের চারপাশের লাল বৃত্তের স্টাইল */
+        .pulsing-red-circle {
+            background-color: #ff3b3b; /* উজ্জ্বল লাল রঙ */
+            color: white; /* লেখার রঙ সাদা */
+            padding: 8px 25px; /* বৃত্তাকার করার জন্য প্যাডিং */
+            border-radius: 50px; /* গোলাকার কোণা (Pill shape) */
+            display: inline-block; /* এনিমেশন ঠিকমতো কাজ করার জন্য জরুরি */
+            white-space: nowrap; /* লেখা যেন ভেঙে নিচে না নামে */
+            box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.7); /* প্রাথমিক ছায়া */
+            
+            /* এনিমেশন যুক্ত করা (নাম: pulse-red, সময়: 2s, লুপ: infinite) */
+            animation: pulse-red 2s infinite; 
+        }
+
+        /* লোপ এনিমেশনের কি-ফ্রেম (Keyframes) */
+        @keyframes pulse-red {
+            0% {
+                transform: scale(1); /* স্বাভাবিক সাইজ */
+                box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.7); /* কোনো ছড়ানো ছায়া নেই */
+            }
+            50% {
+                transform: scale(1.05); /* সামান্য বড় হবে */
+                box-shadow: 0 0 20px 10px rgba(255, 59, 59, 0); /* ছায়াটি ছড়িয়ে মিলিয়ে যাবে */
+            }
+            100% {
+                transform: scale(1); /* আবার স্বাভাবিক সাইজে ফিরে আসবে */
+                box-shadow: 0 0 0 0 rgba(255, 59, 59, 0);
+            }
+        }
+
+        /* মোবাইল রেসপন্সিভ */
+        @media (max-width: 600px) {
+            .offer-headline {
+                font-size: 1.5rem;
+            }
+            .pulsing-red-circle {
+                padding: 5px 15px;
+            }
+        }
         /* --- ফন্ট এবং বেসিক সেটআপ --- */
         @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;600;700&display=swap');
 
@@ -307,6 +370,11 @@
 
 <div class="container">
     <header>
+        <div class="offer-headline">
+        সেরা দামে 
+        <span class="pulsing-red-circle">Camera</span> 
+        কিনুন
+    </div>
         <h1> সেরা দামে Camera কিনুন</h1>
     </header>
 
