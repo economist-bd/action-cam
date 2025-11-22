@@ -364,6 +364,78 @@
         .reveal.active { opacity: 1; transform: translateY(0); }
         
         footer { text-align: center; padding: 20px; color: #666; font-size: 0.9rem; }
+
+       /* --- ১. লাল বৃত্তের ডিজাইন (Red Circle) --- */
+.circle-text {
+    position: relative;
+    display: inline-block;
+    color: #2c3e50; /* টেক্সট কালার */
+    z-index: 1;
+}
+
+.circle-text::after {
+    content: '';
+    position: absolute;
+    top: -5px;    /* টেক্সট থেকে কতটুকু উপরে */
+    left: -15px;  /* বামে কতটুকু */
+    right: -15px; /* ডানে কতটুকু */
+    bottom: -5px; /* নিচে কতটুকু */
+    border: 2px solid red; /* লাল বর্ডার */
+    border-radius: 50%;    /* গোল করার জন্য */
+    transform: rotate(-5deg); /* হালকা বাঁকানো স্টাইল */
+    z-index: -1; /* লেখার নিচে থাকবে */
+}
+
+/* --- ২. হোয়াটসঅ্যাপ পালস/তরঙ্গ এনিমেশন (Pulse Animation) --- */
+.floating-wa {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #25D366;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 2000;
+    /* বাউন্স এনিমেশনটা সরিয়ে পালস দেওয়া হলো, চাইলে রাখতেও পারেন */
+    transition: all 0.3s ease;
+}
+
+/* তরঙ্গের জন্য ::before এবং ::after ব্যবহার */
+.floating-wa::before,
+.floating-wa::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    background: #25D366; /* আইকনের রঙের সাথে মিল */
+    z-index: -1; /* আইকনের পেছনে থাকবে */
+    opacity: 0.7;
+    animation: wave-pulse 2s infinite; /* এনিমেশন নাম ও সময় */
+}
+
+/* দ্বিতীয় তরঙ্গের জন্য একটু দেরি (delay) দেওয়া */
+.floating-wa::after {
+    animation-delay: 0.5s;
+}
+
+/* এনিমেশন তৈরির কোড */
+@keyframes wave-pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(2.5); /* কতটুকু বড় হবে */
+        opacity: 0;   /* শেষে মিলিয়ে যাবে */
+    }
+}
     </style>
 </head>
 <body>
@@ -389,8 +461,8 @@
     </div>
 
     <div class="guarantee-box">
-        <h3>🛡️ ১২ দিনের রিপ্লেসমেন্ট গ্যারান্টি</h3>
-    </div>
+    <h3>🛡️ ১২ দিনের রিপ্লেসমেন্ট <span class="circle-text">গ্যারান্টি</span></h3>
+</div>
 
     <div class="content-section">
         <h3 class="section-title">প্রোডাক্ট এর কিছু ছবি</h3>
